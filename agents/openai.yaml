@@ -1,0 +1,4 @@
+interface:
+  display_name: "Linear Issue Cleanup"
+  short_description: "Reconcile Linear against the real codebase, close stale issues, reschedule valid work, then keep executing the remaining issues"
+  default_prompt: "Use $linear-issue-cleanup-skill to first reconcile the relevant Linear backlog against the current codebase, recent commits, and any real runtime evidence. Close issues that are already addressed, obsolete, or duplicate. Update and schedule the issues that still matter so the backlog is accurate. Then continue systematically through the remaining valid issues by implementing and verifying them, keeping Linear status and comments in sync as you go."
