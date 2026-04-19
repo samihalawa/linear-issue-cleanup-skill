@@ -17,6 +17,12 @@ The job is:
 
 This skill is execution-first. Do not stop after triage if the user asked to proceed through the remaining work.
 
+For Oulang, project correctness is part of cleanup:
+
+- `samihalawa/2026-MANUS-oulang` is for real implementation, bugs, UX fixes, instrumentation, cleanup, and operational debugging.
+- `Oulang Ideas & Inspirations` is for opportunities, ideas, monetization concepts, strategic directions, and not-yet-execution-ready product proposals.
+- If an issue is in the wrong project, move it. Do not leave routing mistakes in place and do not paper over them by creating duplicates.
+
 ## Hard Rules
 
 - Work in the real local repo and the real Linear workspace.
@@ -29,6 +35,11 @@ This skill is execution-first. Do not stop after triage if the user asked to pro
 - Scheduling means setting the right status and, when the workspace uses them, assigning owner, priority, cycle, milestone, due date, or project so the issue can actually be worked.
 - After the cleanup pass, continue into execution for the remaining validated issues unless the user explicitly asked only for triage.
 - Keep implementation aligned with the current codebase; do not force old issue narratives onto a changed architecture.
+- Use the real Linear content, not only titles: description, comments, labels, status, relations, assignee, project, cycle, and recent updates all matter.
+- “Hallucinated”, stale, or clearly wrong issues should be canceled or removed from the active queue after evidence review.
+- “Already addressed” means the issue should end in a completed state, not linger in backlog or in progress.
+- Misfiled idea issues in `samihalawa/2026-MANUS-oulang` must be moved to `Oulang Ideas & Inspirations`.
+- Misfiled implementation/debugging issues in `Oulang Ideas & Inspirations` must be moved to `samihalawa/2026-MANUS-oulang`.
 
 ## Required First Pass
 
@@ -42,6 +53,7 @@ Before editing product code, complete this reconciliation pass:
    - addressed
    - obsolete
    - duplicate
+   - misfiled-move
    - valid-needs-update
    - valid-ready-to-execute
 6. update Linear so the backlog reflects reality
@@ -59,6 +71,11 @@ Before editing product code, complete this reconciliation pass:
   - label
   - or a specific issue set
 - Use the real Linear tools to fetch the issue list, issue details, comments, statuses, and project metadata.
+- Prefer the richer Linear tools when available:
+  - use `fetch` for full issue reads
+  - use `save_comment` for short audit notes when the workspace supports comments
+  - use `research` for cross-project cleanup questions, workflow conventions, or when common Linear development workflows/sections need to be respected
+  - use `list_issue_statuses` when the status map is ambiguous
 - Inspect the local repo before making issue decisions:
   - `tree -I node_modules -L 2`
   - `git status --short --branch`
@@ -76,6 +93,7 @@ For each issue in scope:
   - already addressed in the current code or shipped state
   - obsolete because the product or architecture changed
   - duplicated by another issue
+  - in the wrong project and should be moved
   - still valid but missing clarity or schedule
   - still valid and ready for implementation now
 
@@ -93,6 +111,13 @@ For duplicates or obsolete issues:
 - close or cancel them deliberately
 - link the superseding issue when one exists
 
+For misfiled issues:
+
+- move the issue to the correct project instead of cloning it
+- keep the same issue when history is still useful
+- update the title/description only as much as needed to fit the new project context
+- remove wrong-status drift at the same time if the item is already done, stale, or in progress
+
 For valid but stale issues:
 
 - rewrite the title or description if needed so the work is specific
@@ -100,6 +125,16 @@ For valid but stale issues:
 - assign the correct owner if obvious from the repo context
 - place the issue into the correct cycle, milestone, or due-date schedule when that workflow exists
 - remove ambiguity before execution begins
+
+For already addressed issues:
+
+- set them to the workspace’s real completed state
+- do not leave them in backlog or in progress after verification
+
+For stale, wrong, or hallucinated issues:
+
+- cancel or archive them deliberately
+- prefer concise evidence-backed cleanup over letting false backlog survive
 
 ### 4. Build The Execution Queue
 
@@ -112,6 +147,11 @@ After cleanup, order the remaining valid issues by:
 5. verification cost
 
 Prefer finishing one coherent slice at a time rather than scattering partial work across many issues.
+
+Do not let project misfiling corrupt the queue:
+
+- idea/project-discovery work should not block execution sequencing for the implementation project
+- code/debugging issues should not stay buried in the ideas project
 
 ### 5. Execute The Remaining Issues Systematically
 
@@ -134,6 +174,7 @@ As work proceeds:
 - close issues only after verification
 - comment briefly with what changed when that helps future cleanup
 - adjust downstream issue schedules if blockers were removed or priorities changed
+- keep project assignment correct as the issue evolves; if an “idea” became concrete execution work, move it
 
 ### 7. Finish Cleanly
 
@@ -141,6 +182,7 @@ At the end of the run, report:
 
 - which issues were closed as already addressed
 - which issues were closed as obsolete or duplicate
+- which issues were moved to the other project
 - which issues were updated or rescheduled
 - which issues were implemented
 - which valid issues remain and in what execution order
