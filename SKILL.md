@@ -32,6 +32,7 @@ For Oulang, project correctness is part of cleanup:
 - When closing an issue, leave a short factual note if helpful so the cleanup is auditable.
 - Do not mark unresolved work as done just because part of it exists.
 - If an issue is still valid but underspecified, rewrite it into an actionable state before scheduling it.
+- When rewriting a valid issue, make the work type explicit and keep the description cheap for coding agents to execute.
 - Scheduling means setting the right status and, when the workspace uses them, assigning owner, priority, cycle, milestone, due date, or project so the issue can actually be worked.
 - After the cleanup pass, continue into execution for the remaining validated issues unless the user explicitly asked only for triage.
 - Keep implementation aligned with the current codebase; do not force old issue narratives onto a changed architecture.
@@ -40,6 +41,33 @@ For Oulang, project correctness is part of cleanup:
 - “Already addressed” means the issue should end in a completed state, not linger in backlog or in progress.
 - Misfiled idea issues in `samihalawa/2026-MANUS-oulang` must be moved to `Oulang Ideas & Inspirations`.
 - Misfiled implementation/debugging issues in `Oulang Ideas & Inspirations` must be moved to `samihalawa/2026-MANUS-oulang`.
+- Do not present analytics spikes, verification tasks, or policy questions as confirmed code bugs unless the current evidence proves that framing.
+
+## Issue Optimization Standard
+
+When a valid issue needs cleanup, optimize it for execution instead of preserving narrative bulk.
+
+Make the work type obvious:
+
+- `code bug`
+- `UX improvement`
+- `AI behavior improvement`
+- `analytics investigation`
+- `verification-only work`
+- `architecture or refactor work`
+
+Then rewrite to fit the type:
+
+- `code bug`: trigger, observed behavior, expected behavior, likely area, boundaries
+- `UX improvement`: current friction, target improvement, exact surface, non-goals
+- `analytics investigation`: what is known, what still needs proof, out of scope
+- `verification-only work`: what claim must be confirmed or disproved, proof required
+- `architecture or refactor work`: structural goal, guardrails, non-goals
+
+For umbrella issues, keep the parent concise and move execution detail into child issues.
+When nearby issues overlap, add explicit related links or consolidate rather than leaving duplicated sibling narratives.
+Relabel issues when bugs, UX work, refactors, and investigations are currently misclassified.
+Remove stale hypotheses, duplicated context, and long prose that does not help an agent act.
 
 ## Required First Pass
 
@@ -121,6 +149,7 @@ For misfiled issues:
 For valid but stale issues:
 
 - rewrite the title or description if needed so the work is specific
+- make the work type explicit if the current framing is muddy
 - update priority and status
 - assign the correct owner if obvious from the repo context
 - place the issue into the correct cycle, milestone, or due-date schedule when that workflow exists
